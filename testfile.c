@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#define TMP_DIR     "systeminfor"
+#define TMP_DIR     "/tmp/systeminfor"
 
 int fork_write(unsigned char *d, char n)
 {

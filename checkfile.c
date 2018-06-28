@@ -17,8 +17,8 @@
 #include <sys/mman.h>
 
 #define TMP_DIR     "/tmp/systeminfor"
-#define EEPROM_DIR "/sys/bus/nvmem/devices/1-00500/nvmem"
-
+//#define EEPROM_DIR "/sys/bus/nvmem/devices/1-00500/nvmem"
+#define EEPROM_DIR  "t"
 char *ptr_cmp;
 static void displayInotifyEvent(struct inotify_event *i)
 {
@@ -108,7 +108,7 @@ static void check_notify_event(struct inotify_event *i)
 	if (i->mask & IN_MODIFY)
 	{
 		printf("modify file\r\n");
-		check_diff_file();
+		//check_diff_file();
 	}
 }
 
@@ -123,7 +123,7 @@ static void prepare_file()
 		perror("prepare_file open EEPROM_DIR error");
 		exit(1);
 	}
-	fd_tmp1 = open(TMP_DIR, O_RDWR | O_NOCTTY | O_CREAT | O_EXCL);
+	fd_tmp1 = open(TMP_DIR, O_RDWR | O_NOCTTY | O_EXCL);
 	if(fd_tmp1 == -1)
 	{
 		perror("prepare_file open TMP_DIR error");
@@ -138,7 +138,7 @@ static void prepare_file()
 	}
 	tmp = ptr_cmp;
 
-	for (i = 0; i < (1 << 12); i++)
+	for (i = 0; i < (1 << 9); i++)
 	{
 		read(fd, buf, 256);
 		write(fd_tmp1, buf, 256);
